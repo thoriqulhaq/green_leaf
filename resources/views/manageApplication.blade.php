@@ -97,7 +97,8 @@
                                                 <input
                                                     class="shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     type="text" name="answer" id="answer">
-                                                <input type="hidden" name="question_num" value="{{$data->question_num}}">
+                                                <input type="hidden" name="question_num"
+                                                    value="{{$data->question_num}}">
                                             </td>
                                             <td>
                                                 <button
@@ -109,8 +110,8 @@
                                         </form>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            {{ $answers->answer->where('question_num','=',$data->question_num) }}
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500 text-center">Your Answer: {{ $answersdat[$data->question_num]->answer }}</div>
                                         </td>
                                     </tr>
                                     @endforeach
