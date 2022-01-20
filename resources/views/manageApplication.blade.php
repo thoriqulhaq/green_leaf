@@ -36,8 +36,6 @@
                 class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-green-800 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline"
                     href="#">Dashboard</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-green-800 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline"
-                    href="#">Form Manager</a>
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-green-800 bg-white rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline"
                     href="{{url('/manage-application')}}">Manage Application</a>
             </nav>
@@ -87,6 +85,7 @@
                                             <div class="text-sm text-gray-500 text-center">{{$data->mark}}</div>
                                         </td>
                                     </tr>
+                                     
                                     <tr>
                                         <form action="{{route('answering-question')}}" method="POST">
                                             @csrf
@@ -106,13 +105,17 @@
                                                     Submit
                                                 </button>
                                             </td>
+                                            
                                         </form>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            {{ $answers->answer->where('question_num','=',$data->question_num) }}
-                                        </td>
+                                        @foreach ($answers as $answer)
+                                            <td class="px-6 py-4 whitespace-nowrap w-1">
+                                          <div class="text-sm text-gray-500"> Your current answer for question no. {{$data->question_num}} is : {{$answer->answer}} </div>
+                                            </td>
+                                            @endforeach
                                     </tr>
+                                
                                     @endforeach
                                 </tbody>
                             </table>
