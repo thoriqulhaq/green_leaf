@@ -22,3 +22,6 @@ Route::post('/create-question', [ManageApplicationFormController::class, 'create
 Route::get('/update-question/{id}', [ManageApplicationFormController::class, 'getQuestion']);
 Route::post('/update-question', [ManageApplicationFormController::class, 'updateQuestion'])->name('update-question');
 Route::get('/delete-question/{id}', [ManageApplicationFormController::class, 'deleteQuestion']);
+Route::get('/manage-application', [ManageApplicationFormController::class, 'manageApplication']);
+Route::post('/answering-question', [ManageApplicationFormController::class, 'answeringQuestion'])->name('answering-question');
+
