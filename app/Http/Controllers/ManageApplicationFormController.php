@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ApplicationForm;
 
-class ManageApplicationFormContorller extends Controller
+class ManageApplicationFormController extends Controller
 {
     public function getQuestions()
     {

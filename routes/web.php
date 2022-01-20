@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ManageApplicationFormContorller;
+use App\Http\Controllers\ManageApplicationFormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ManageApplicationFormContorller::class, 'getQuestions']);
+Route::get('/', [ManageApplicationFormController::class, 'getQuestions']);
 Route::get('/create-question', function () {
     return view('createQuestion');
 });
-Route::post('/create-question', [ManageApplicationFormContorller::class, 'createQuestion'])->name('create-question');
-Route::get('/update-question/{id}', [ManageApplicationFormContorller::class, 'getQuestion']);
-Route::post('/update-question', [ManageApplicationFormContorller::class, 'updateQuestion'])->name('update-question');
-Route::get('/delete-question/{id}', [ManageApplicationFormContorller::class, 'deleteQuestion']);
+Route::post('/create-question', [ManageApplicationFormController::class, 'createQuestion'])->name('create-question');
+Route::get('/update-question/{id}', [ManageApplicationFormController::class, 'getQuestion']);
+Route::post('/update-question', [ManageApplicationFormController::class, 'updateQuestion'])->name('update-question');
+Route::get('/delete-question/{id}', [ManageApplicationFormController::class, 'deleteQuestion']);
