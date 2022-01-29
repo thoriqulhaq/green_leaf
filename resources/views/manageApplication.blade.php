@@ -117,7 +117,7 @@
                                     <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
                                         {{$data->question_num}}. {{$data->question}}
                                     </div>
-                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl shadow-md">
                                         <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
                                         <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
                                     </div>
@@ -202,7 +202,7 @@
                                     <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
                                         {{$data->question_num}}. {{$data->question}}
                                     </div>
-                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl shadow-md">
                                         <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
                                         <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
                                     </div>
@@ -287,7 +287,7 @@
                                     <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
                                         {{$data->question_num}}. {{$data->question}}
                                     </div>
-                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl shadow-md">
                                         <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
                                         <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
                                     </div>
@@ -372,7 +372,7 @@
                                     <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
                                         {{$data->question_num}}. {{$data->question}}
                                     </div>
-                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl shadow-md">
                                         <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
                                         <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
                                     </div>
