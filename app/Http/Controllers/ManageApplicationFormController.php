@@ -29,11 +29,11 @@ class ManageApplicationFormController extends Controller
     public function manageApplication()
     {
         $datas = ApplicationForm::all();
-        $answersdat = ApplicationDetails::all();
+        $answers = ApplicationDetails::all();
 
         return view('manageApplication', [
             'datas' => $datas,
-            'answersdat' => $answersdat
+            'answers' => $answers
         ]);
     }
 
@@ -55,6 +55,13 @@ class ManageApplicationFormController extends Controller
             'question_num' => $request->question_num,
             'answer' => $request->answer
         ]);
+
+        return redirect('/manage-application');
+    }
+
+    public function updateAnswer(Request $request)
+    {
+        ApplicationDetails::find($request->id)->update($request->all());
 
         return redirect('/manage-application');
     }
