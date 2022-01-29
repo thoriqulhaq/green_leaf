@@ -25,3 +25,4 @@ Route::get('/delete-question/{id}', [ManageApplicationFormController::class, 'de
 Route::get('/manage-application', [ManageApplicationFormController::class, 'manageApplication']);
 Route::post('/answering-question', [ManageApplicationFormController::class, 'answeringQuestion'])->name('answering-question');
 Route::post('/update-answer', [ManageApplicationFormController::class, 'updateAnswer'])->name('update-answer');
+Route::get('/community-dashboard', [ManageApplicationFormController::class, 'getAnsweredQuestions']);
