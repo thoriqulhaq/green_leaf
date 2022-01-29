@@ -52,11 +52,11 @@ class ManageApplicationFormController extends Controller
     public function answeringQuestion(Request $request)
     {
         ApplicationDetails::query()->create([
-            'question_num'=> $request->question_num,
+            'question_num' => $request->question_num,
             'answer' => $request->answer
         ]);
 
-        return redirect('/');
+        return redirect('/manage-application');
     }
 
     public function updateQuestion(Request $request)
