@@ -47,82 +47,91 @@
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                                            Number
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                                            Part
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Question
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                                            Mark
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach ( $datas as $data )
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap w-1">
-                                            <div class="text-sm text-gray-500 text-center">{{$data->question_num}}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap w-1">
-                                            <div class="text-sm text-gray-500 text-center">{{$data->part}}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-500">{{$data->question}}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 w-1">
-                                            <div class="text-sm text-gray-500 text-center">{{$data->mark}}</div>
-                                        </td>
-                                    </tr>
-                                     
-                                    <tr>
-                                        <form action="{{route('answering-question')}}" method="POST">
-                                            @csrf
-                                            <td class="px-6 py-4 whitespace-nowrap" colspan="2">
 
-                                                <label class="text-sm text-gray-600 text-center"
-                                                    for="answer">Answer:</label>
-                                                <input
-                                                    class="shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                                    type="text" name="answer" id="answer">
-                                                <input type="hidden" name="question_num"
-                                                    value="{{$data->question_num}}">
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-800 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    type="submit">
-                                                    Submit
-                                                </button>
-                                            </td>
-                                            
-                                        </form>
-                                    </tr>
-                                    <tr>
 
-                                        @foreach ($answers as $answer)
-                                            <td class="px-6 py-4 whitespace-nowrap w-1">
-                                          <div class="text-sm text-gray-500"> Your current answer for question no. {{$data->question_num}} is : {{$answer->answer}} </div>
-                                            </td>
-                                            @endforeach
-                                            
-                                    </tr>
+                        @foreach ( $datas as $data )
+                        <style>
+                        body {background:white !important;}
+                        </style>
+                        <div>
+                            @php
+                                $counter = 0;
+                            @endphp
+                            @foreach ($answers as $answer)
+                                @if($answer->question_num == $data->id)
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                    <form action="{{route('update-answer')}}" method="POST">
+                                        {{-- {{dd('masuk')}} --}}
+                                @endif
+                            @endforeach
+                            @if($counter == 0)
+                                <form action="{{route('answering-question')}}" method="POST">
+                                    {{-- {{dd('masuk1')}} --}}
+                            @endif
+                            @csrf
+                        <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-300 p-4 shadow-lg  rounded-xl">
+                            {{-- <input class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" spellcheck="false" placeholder="Title" type="text"> --}}
+                            <div class="flex justify-between">
+                                <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">{{$data->question_num}}. {{$data->question}}</div>
+                                <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                    <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
+                                    <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                                </div>
+                            </div>
+                            @php
+                                    $counter1 = 0;
+                                @endphp
+                            @foreach ($answers as $answer)
+                                @if($answer->question_num == $data->id)
+                                    @php
+                                        $counter1++;
+                                    @endphp
+                                    <input type="hidden" name="id" value="{{$answer->id}}">
+                                    <input type="hidden" name="question_num" value="{{$answer->question_num}}">
+                                    
+                                @endif
+                            @endforeach
+                            @if($counter1 == 0)
+                            <input type="hidden" name="question_num" value="{{$data->id}}">
+                            @endif
                                 
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
+                            
+                            <!-- icons -->
+                            <!-- buttons -->
+                            <div class="flex justify-between">
+                                @php
+                                    $counter2 = 0;
+                                @endphp
+                                @foreach ($answers as $answer)
+                                    @if($answer->question_num == $data->id)
+                                        @php
+                                            $counter2++;
+                                        @endphp
+                                        <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                    @endif
+                                @endforeach
+                                @if($counter2 == 0)
+                                    <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                @endif
+                                @foreach ($answers as $answer)
+                                @if($answer->question_num == $data->id)
+                                    @php
+                                        $counter1++;
+                                    @endphp
+                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
+                                    
+                                @endif
+                            @endforeach
+                            @if($counter1 == 0)
+                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                            @endif
+                            </div>
                         </div>
+                    </form>
+                        @endforeach
                     </div>
                 </div>
             </div>
