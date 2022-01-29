@@ -48,19 +48,47 @@
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 
-                        <div class="flex justify-between text-gray-600 font-semibold mb-24">
-                            <button @click="tab = 1" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
-                                <p class="m-auto">Part 1</p>
-                            </button>
-                            <button @click="tab = 2" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
-                                <p class="m-auto">Part 2</p>
-                            </button>
-                            <button @click="tab = 3" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
-                                <p class="m-auto">Part 3</p>
-                            </button>
-                            <button  @click="tab = 4" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
-                                <p class="m-auto">Part 4</p>
-                            </button>
+                        <div class="flex justify-between mb-24">
+                            <template x-if="tab != 1">
+                                <button @click="tab = 1" class="text-green-800 rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-green-800 hover:text-white">
+                                    <p class="m-auto font-bold">Part 1</p>
+                                </button>
+                            </template>
+                            <template x-if="tab == 1">
+                                <button @click="tab = 1" class="text-white rounded-2xl border border-gray-100 bg-green-800 shadow-lg text-center px-36 py-4 hover:bg-white hover:text-green-800">
+                                    <p class="m-auto font-bold">Part 1</p>
+                                </button>
+                            </template>
+                            <template x-if="tab != 2">
+                                <button @click="tab = 2" class="text-green-800 rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-green-800 hover:text-white">
+                                    <p class="m-auto font-bold">Part 2</p>
+                                </button>
+                            </template>
+                            <template x-if="tab == 2">
+                                <button @click="tab = 2" class="text-white rounded-2xl border border-gray-100 bg-green-800 shadow-lg text-center px-36 py-4 hover:bg-white hover:text-green-800">
+                                    <p class="m-auto font-bold">Part 2</p>
+                                </button>
+                            </template>
+                            <template x-if="tab != 3">
+                                <button @click="tab = 3" class="text-green-800 rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-green-800 hover:text-white">
+                                    <p class="m-auto font-bold">Part 3</p>
+                                </button>
+                            </template>
+                            <template x-if="tab == 3">
+                                <button @click="tab = 3" class="text-white rounded-2xl border border-gray-100 bg-green-800 shadow-lg text-center px-36 py-4 hover:bg-white hover:text-green-800">
+                                    <p class="m-auto font-bold">Part 3</p>
+                                </button>
+                            </template>
+                            <template x-if="tab != 4">
+                                <button @click="tab = 4" class="text-green-800 rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-green-800 hover:text-white">
+                                    <p class="m-auto font-bold">Part 4</p>
+                                </button>
+                            </template>
+                            <template x-if="tab == 4">
+                                <button @click="tab = 4" class="text-white rounded-2xl border border-gray-100 bg-green-800 shadow-lg text-center px-36 py-4 hover:bg-white hover:text-green-800">
+                                    <p class="m-auto font-bold">Part 4</p>
+                                </button>
+                            </template>
                         </div>
 
                         <template x-if="tab == 1">
