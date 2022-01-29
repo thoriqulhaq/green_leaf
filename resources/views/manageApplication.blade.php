@@ -96,7 +96,8 @@
                                                 <input
                                                     class="shadow appearance-none border rounded w-9/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     type="text" name="answer" id="answer">
-                                                <input type="hidden" name="question_num" value="{{$data->question_num}}">
+                                                <input type="hidden" name="question_num"
+                                                    value="{{$data->question_num}}">
                                             </td>
                                             <td>
                                                 <button
@@ -109,11 +110,13 @@
                                         </form>
                                     </tr>
                                     <tr>
+
                                         @foreach ($answers as $answer)
                                             <td class="px-6 py-4 whitespace-nowrap w-1">
                                           <div class="text-sm text-gray-500"> Your current answer for question no. {{$data->question_num}} is : {{$answer->answer}} </div>
                                             </td>
                                             @endforeach
+                                            
                                     </tr>
                                 
                                     @endforeach
