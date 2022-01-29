@@ -59,6 +59,13 @@ class ManageApplicationFormController extends Controller
         return redirect('/manage-application');
     }
 
+    public function updateAnswer(Request $request)
+    {
+        ApplicationDetails::find($request->id)->update($request->all());
+
+        return redirect('/manage-application');
+    }
+
     public function updateQuestion(Request $request)
     {
         ApplicationForm::find($request->id)->update($request->all());
