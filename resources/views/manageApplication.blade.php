@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
+    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full" x-data="{ tab: 1 }">
         <div @click.away="open = false"
             class=" m-4 rounded-lg shadow-md flex flex-col w-full md:w-64 text-gray-700 bg-green-200 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
             x-data="{ open: false }">
@@ -48,12 +48,27 @@
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 
+                        <div class="flex justify-between text-gray-600 font-semibold mb-24">
+                            <button @click="tab = 1" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
+                                <p class="m-auto">Part 1</p>
+                            </button>
+                            <button @click="tab = 2" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
+                                <p class="m-auto">Part 2</p>
+                            </button>
+                            <button @click="tab = 3" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
+                                <p class="m-auto">Part 3</p>
+                            </button>
+                            <button  @click="tab = 4" class="rounded-2xl border border-gray-100 shadow-lg text-center px-36 py-4 hover:bg-gray-50">
+                                <p class="m-auto">Part 4</p>
+                            </button>
+                        </div>
 
+                        <template x-if="tab == 1">
+                            <div>
+                        
                         @foreach ( $datas as $data )
-                        <style>
-                        body {background:white !important;}
-                        </style>
-                        <div>
+                        @if($data->part == 1)
+                            <div>
                             @php
                                 $counter = 0;
                             @endphp
@@ -63,76 +78,333 @@
                                         $counter++;
                                     @endphp
                                     <form action="{{route('update-answer')}}" method="POST">
-                                        {{-- {{dd('masuk')}} --}}
                                 @endif
                             @endforeach
                             @if($counter == 0)
                                 <form action="{{route('answering-question')}}" method="POST">
-                                    {{-- {{dd('masuk1')}} --}}
                             @endif
                             @csrf
-                        <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-300 p-4 shadow-lg  rounded-xl">
-                            {{-- <input class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" spellcheck="false" placeholder="Title" type="text"> --}}
-                            <div class="flex justify-between">
-                                <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">{{$data->question_num}}. {{$data->question}}</div>
-                                <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
-                                    <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
-                                    <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                            <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-100 p-4 shadow-lg  rounded-xl">
+                                <div class="flex justify-between">
+                                    <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
+                                        {{$data->question_num}}. {{$data->question}}
+                                    </div>
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                        <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
+                                        <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            @php
-                                    $counter1 = 0;
-                                @endphp
-                            @foreach ($answers as $answer)
-                                @if($answer->question_num == $data->id)
-                                    @php
-                                        $counter1++;
-                                    @endphp
-                                    <input type="hidden" name="id" value="{{$answer->id}}">
-                                    <input type="hidden" name="question_num" value="{{$answer->question_num}}">
-                                    
-                                @endif
-                            @endforeach
-                            @if($counter1 == 0)
-                            <input type="hidden" name="question_num" value="{{$data->id}}">
-                            @endif
-                                
-                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
-                            
-                            <!-- icons -->
-                            <!-- buttons -->
-                            <div class="flex justify-between">
                                 @php
-                                    $counter2 = 0;
+                                    $counter1 = 0;
                                 @endphp
                                 @foreach ($answers as $answer)
                                     @if($answer->question_num == $data->id)
                                         @php
-                                            $counter2++;
+                                            $counter1++;
                                         @endphp
-                                        <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                        <input type="hidden" name="id" value="{{$answer->id}}">
+                                        <input type="hidden" name="question_num" value="{{$answer->question_num}}">
+                                        
                                     @endif
                                 @endforeach
-                                @if($counter2 == 0)
-                                    <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                @if($counter1 == 0)
+                                    <input type="hidden" name="question_num" value="{{$data->id}}">
                                 @endif
-                                @foreach ($answers as $answer)
+                                    
+                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
+                                
+
+                                <div class="flex justify-between">
+                                    @php
+                                        $counter2 = 0;
+                                    @endphp
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter2++;
+                                            @endphp
+                                            <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                        @endif
+                                    @endforeach
+                                    @if($counter2 == 0)
+                                        <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                    @endif
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter1++;
+                                            @endphp
+                                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
+                                            
+                                        @endif
+                                    @endforeach
+                                    @if($counter1 == 0)
+                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                @endforeach
+                </div>
+            </template>
+            <template x-if="tab == 2">
+                <div>
+                    @foreach ( $datas as $data )
+                        @if($data->part == 2)
+                            <div>
+                            @php
+                                $counter = 0;
+                            @endphp
+                            @foreach ($answers as $answer)
                                 @if($answer->question_num == $data->id)
                                     @php
-                                        $counter1++;
+                                        $counter++;
                                     @endphp
-                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
-                                    
+                                    <form action="{{route('update-answer')}}" method="POST">
                                 @endif
                             @endforeach
-                            @if($counter1 == 0)
-                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                            @if($counter == 0)
+                                <form action="{{route('answering-question')}}" method="POST">
                             @endif
+                            @csrf
+                            <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-100 p-4 shadow-lg  rounded-xl">
+                                <div class="flex justify-between">
+                                    <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
+                                        {{$data->question_num}}. {{$data->question}}
+                                    </div>
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                        <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
+                                        <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                                    </div>
+                                </div>
+                                @php
+                                    $counter1 = 0;
+                                @endphp
+                                @foreach ($answers as $answer)
+                                    @if($answer->question_num == $data->id)
+                                        @php
+                                            $counter1++;
+                                        @endphp
+                                        <input type="hidden" name="id" value="{{$answer->id}}">
+                                        <input type="hidden" name="question_num" value="{{$answer->question_num}}">
+                                        
+                                    @endif
+                                @endforeach
+                                @if($counter1 == 0)
+                                    <input type="hidden" name="question_num" value="{{$data->id}}">
+                                @endif
+                                    
+                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
+                                
+
+                                <div class="flex justify-between">
+                                    @php
+                                        $counter2 = 0;
+                                    @endphp
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter2++;
+                                            @endphp
+                                            <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                        @endif
+                                    @endforeach
+                                    @if($counter2 == 0)
+                                        <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                    @endif
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter1++;
+                                            @endphp
+                                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
+                                            
+                                        @endif
+                                    @endforeach
+                                    @if($counter1 == 0)
+                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                        @endforeach
+                        </form>
                     </div>
+                    @endif
+                @endforeach
+                </div>
+            </template>
+            <template x-if="tab == 3">
+                <div>
+                    @foreach ( $datas as $data )
+                        @if($data->part == 3)
+                            <div>
+                            @php
+                                $counter = 0;
+                            @endphp
+                            @foreach ($answers as $answer)
+                                @if($answer->question_num == $data->id)
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                    <form action="{{route('update-answer')}}" method="POST">
+                                @endif
+                            @endforeach
+                            @if($counter == 0)
+                                <form action="{{route('answering-question')}}" method="POST">
+                            @endif
+                            @csrf
+                            <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-100 p-4 shadow-lg  rounded-xl">
+                                <div class="flex justify-between">
+                                    <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
+                                        {{$data->question_num}}. {{$data->question}}
+                                    </div>
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                        <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
+                                        <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                                    </div>
+                                </div>
+                                @php
+                                    $counter1 = 0;
+                                @endphp
+                                @foreach ($answers as $answer)
+                                    @if($answer->question_num == $data->id)
+                                        @php
+                                            $counter1++;
+                                        @endphp
+                                        <input type="hidden" name="id" value="{{$answer->id}}">
+                                        <input type="hidden" name="question_num" value="{{$answer->question_num}}">
+                                        
+                                    @endif
+                                @endforeach
+                                @if($counter1 == 0)
+                                    <input type="hidden" name="question_num" value="{{$data->id}}">
+                                @endif
+                                    
+                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
+                                
+
+                                <div class="flex justify-between">
+                                    @php
+                                        $counter2 = 0;
+                                    @endphp
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter2++;
+                                            @endphp
+                                            <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                        @endif
+                                    @endforeach
+                                    @if($counter2 == 0)
+                                        <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                    @endif
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter1++;
+                                            @endphp
+                                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
+                                            
+                                        @endif
+                                    @endforeach
+                                    @if($counter1 == 0)
+                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                @endforeach
+                </div>
+            </template>
+            <template x-if="tab == 4">
+                <div>
+                    @foreach ( $datas as $data )
+                        @if($data->part == 4)
+                            <div>
+                            @php
+                                $counter = 0;
+                            @endphp
+                            @foreach ($answers as $answer)
+                                @if($answer->question_num == $data->id)
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                    <form action="{{route('update-answer')}}" method="POST">
+                                @endif
+                            @endforeach
+                            @if($counter == 0)
+                                <form action="{{route('answering-question')}}" method="POST">
+                            @endif
+                            @csrf
+                            <div class="editor mx-auto  flex flex-col my-8 text-gray-800 border border-gray-100 p-4 shadow-lg  rounded-xl">
+                                <div class="flex justify-between">
+                                    <div class="ml-2 text-gray-500 font-semibold text-lg pb-4 my-auto">
+                                        {{$data->question_num}}. {{$data->question}}
+                                    </div>
+                                    <div class="text-center mb-4 mr-4 border border-gray-300 rounded-xl">
+                                        <p class="text-sm font-semibold text-gray-500 border-b border-gray-300 px-2">Mark</p>
+                                        <p class="text-base text-gray-500 pb-1">{{$data->mark}}</p>
+                                    </div>
+                                </div>
+                                @php
+                                    $counter1 = 0;
+                                @endphp
+                                @foreach ($answers as $answer)
+                                    @if($answer->question_num == $data->id)
+                                        @php
+                                            $counter1++;
+                                        @endphp
+                                        <input type="hidden" name="id" value="{{$answer->id}}">
+                                        <input type="hidden" name="question_num" value="{{$answer->question_num}}">
+                                        
+                                    @endif
+                                @endforeach
+                                @if($counter1 == 0)
+                                    <input type="hidden" name="question_num" value="{{$data->id}}">
+                                @endif
+                                    
+                                <textarea name="answer" class="rounded-xl description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Answer here ..."></textarea>
+                                
+
+                                <div class="flex justify-between">
+                                    @php
+                                        $counter2 = 0;
+                                    @endphp
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter2++;
+                                            @endphp
+                                            <p class="text-sm font-semibold my-auto pt-4">Your Current Answer : {{$answer->answer}}</p>
+                                        @endif
+                                    @endforeach
+                                    @if($counter2 == 0)
+                                        <p class="text-sm font-semibold my-auto pt-4">You haven't answer yet!</p>
+                                    @endif
+                                    @foreach ($answers as $answer)
+                                        @if($answer->question_num == $data->id)
+                                            @php
+                                                $counter1++;
+                                            @endphp
+                                            <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Update</button>
+                                            
+                                        @endif
+                                    @endforeach
+                                    @if($counter1 == 0)
+                                    <button type="submit" class="btn border border-green-800 p-1 px-6 font-semibold rounded-xl cursor-pointer text-gray-200 ml-2 mt-4 bg-green-800">Save</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                @endforeach
+                </div>
+            </template>
+                </div>
                 </div>
             </div>
         </div>
