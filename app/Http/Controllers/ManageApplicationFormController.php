@@ -29,11 +29,11 @@ class ManageApplicationFormController extends Controller
     public function manageApplication()
     {
         $datas = ApplicationForm::all();
-        $answersdat = ApplicationDetails::all();
+        $answers = ApplicationDetails::all();
 
         return view('manageApplication', [
             'datas' => $datas,
-            'answersdat' => $answersdat
+            'answers' => $answers
         ]);
     }
 
